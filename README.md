@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # proyecto_ra
 
 A new Flutter project.
@@ -15,3 +16,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Realidad_max.3D
+APP DE REALIDAD AUMENTADA CON FLUTTER 
+>>>>>>> 454736b30ae8d7f457ac7a87122532edd334632b
