@@ -1,6 +1,9 @@
 // Importa los componentes visuales de Flutter
 import 'package:flutter/material.dart';
 
+// Importa el paquete del escáner QR
+import 'package:mobile_scanner/mobile_scanner.dart';
+
 // Pantalla del escáner
 class ScannerScreen extends StatelessWidget {
   // Constructor
@@ -16,38 +19,34 @@ class ScannerScreen extends StatelessWidget {
       ),
 
       // Contenido principal
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            // Icono representativo
-            const Icon(
-              Icons.qr_code_scanner,
-              size: 120,
-              color: Colors.green,
-            ),
-
-            const SizedBox(height: 20),
-
-            // Título
-            const Text(
-              "Escáner de Marcadores",
+      body: Column(
+        children: [
+          // Texto informativo
+          const Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              "Prueba de integración del escáner",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
 
-            const SizedBox(height: 10),
+          // Área donde más adelante veremos la cámara
+          Expanded(
+            child: Container(
+              color: Colors.black12,
 
-            // Descripción
-            const Text(
-              "Aquí se abrirá la cámara para reconocer marcadores.",
-              textAlign: TextAlign.center,
+              child: const Center(
+                child: Text(
+                  "Aquí aparecerá la cámara",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
