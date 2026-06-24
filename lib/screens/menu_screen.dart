@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'credits_screen.dart';
 // Importa la pantalla de información
 import 'info_screen.dart';
+// importa la pantalla del escáner
+import 'scanner_screen.dart';
 
 // Pantalla principal del menú
 class MenuScreen extends StatelessWidget {
@@ -64,14 +66,13 @@ class MenuScreen extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_forward_ios),
 
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "Próximamente se abrirá el escáner",
-                      ),
-                    ),
-                  );
-                },
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const ScannerScreen(),
+    ),
+  );
+},
               ),
             ),
 
