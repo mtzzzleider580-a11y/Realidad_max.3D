@@ -2,21 +2,27 @@
 // SERVICIO PARA ADMINISTRAR LOS CÓDIGOS QR
 //
 // Este archivo centraliza todos los marcadores QR del proyecto.
-// Así evitamos escribir muchos if en scanner_screen.dart.
+// Cada código QR devuelve una acción que utilizará ScannerScreen.
 //
 // Autor: Equipo Proyecto RA
 // ======================================================================
 
 class QRService {
-  // ------------------------------------------------------------------
-  // Método que recibe el texto leído por el QR
-  // y devuelve el nombre de la acción que debe realizar.
-  // ------------------------------------------------------------------
+  // Devuelve la acción correspondiente al contenido del QR
   static String obtenerAccion(String codigo) {
-    switch (codigo.toUpperCase()) {
+    // Normaliza el texto para evitar problemas con espacios o mayúsculas
+    codigo = codigo.trim().toUpperCase();
+
+    switch (codigo) {
+      // Abre la pantalla de información
       case "INFO_SENA":
         return "INFO";
 
+      // Abre la pantalla de video
+      case "VIDEO_SENA":
+        return "VIDEO";
+
+      // QR no registrado
       default:
         return "DESCONOCIDO";
     }

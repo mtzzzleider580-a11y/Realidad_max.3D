@@ -7,6 +7,9 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 // Importa la pantalla de información
 import 'info_screen.dart';
 
+// Importa la pantalla de video
+import 'video_screen.dart';
+
 // Importa el servicio que administra los códigos QR
 import '../services/qr_service.dart';
 
@@ -52,12 +55,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
             ),
           ),
 
-          // La cámara ocupa todo el espacio restante
+          // La cámara ocupa el resto de la pantalla
           Expanded(
             child: MobileScanner(
               // Se ejecuta automáticamente cuando detecta un código QR
               onDetect: (capture) {
-                // Si ya se procesó un QR, no vuelve a leer otro
+                // Si ya se procesó un código, no vuelve a leer otro
                 if (_escaneoRealizado) return;
 
                 // Bloquea nuevas lecturas
@@ -66,20 +69,26 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 // Obtiene todos los códigos detectados
                 final List<Barcode> barcodes = capture.barcodes;
 
-                // Recorre cada código encontrado
+                // Recorre todos los códigos encontrados
                 for (final barcode in barcodes) {
                   // Verifica que el QR tenga información
                   if (barcode.rawValue != null) {
                     // Obtiene el texto del QR eliminando espacios
                     String codigo = barcode.rawValue!.trim();
 
-                    // Muestra el contenido leído en la consola
+                    // Muestra el contenido en la consola
                     debugPrint("QR leído: '$codigo'");
 
-                    // Consulta al servicio qué acción debe realizar
+                    // Consulta al servicio cuál es la acción correspondiente
                     String accion = QRService.obtenerAccion(codigo);
 
-                    // Si la acción es abrir la pantalla de información
+
+                    // Muestra la acción devuelta por el servicio
+                    debugPrint("Acción devuelta: '$accion'");
+
+                    // =====================================================
+                    // ACCIÓN: ABRIR INFORMACIÓN
+                    // =====================================================
                     if (accion == "INFO") {
                       Navigator.push(
                         context,
@@ -87,13 +96,30 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           builder: (context) => const InfoScreen(),
                         ),
                       ).then((_) {
-                        // Cuando el usuario regrese,
-                        // permite volver a escanear
+                        // Permite volver a escanear cuando el usuario regrese
                         _escaneoRealizado = false;
                       });
-                    } else {
-                      // Si el QR no está registrado,
-                      // muestra el contenido leído
+                    }
+
+                    // =====================================================
+                    // ACCIÓN: ABRIR VIDEO
+                    // =====================================================
+                    else if (accion == "VIDEO") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const VideoScreen(),
+                        ),
+                      ).then((_) {
+                        // Permite volver a escanear cuando el usuario regrese
+                        _escaneoRealizado = false;
+                      });
+                    }
+
+                    // =====================================================
+                    // ACCIÓN: QR DESCONOCIDO
+                    // =====================================================
+                    else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
